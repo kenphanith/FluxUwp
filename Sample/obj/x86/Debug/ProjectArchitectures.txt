@@ -1,2 +1,0 @@
-C:\Users\phanith\Desktop\FluxUwp\FluxUwp\FluxUwp.csproj;neutral
-C:\Users\phanith\Desktop\FluxUwp\Sample\Sample.csproj;x86
