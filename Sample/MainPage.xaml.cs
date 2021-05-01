@@ -20,6 +20,8 @@ using State = Sample.FluxDispatcher.State;
 using FluxUwp.Disposable;
 using FluxUwp.Extensions;
 using System.Reactive.Linq;
+using FluxUwp.Types;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,10 +34,14 @@ namespace Sample
     {
         private IFluxDispatchable<Action, Mutation, State> fluxDispatcher = new MainFluxDispatcher();
         private DisposeBag DisposeBag = new DisposeBag();
+        private State state { get; set; }
 
         public MainPage()
         {
             this.InitializeComponent();
+
+            /// Binding state with Control
+            this.fluxDispatcher.Bind(this);
 
             this.Increment.rx_Tap()
                 .Select(x => this.fluxDispatcher.Dispatcher(Action.Increment))
@@ -45,11 +51,6 @@ namespace Sample
             this.Decrement.rx_Tap()
                 .Select(x => this.fluxDispatcher.Dispatcher(Action.Decrement))
                 .Bind(this.fluxDispatcher.action)
-                .DisposeBag(bag: this.DisposeBag);
-
-            this.fluxDispatcher.state
-                .Select(state => state.Counter.ToString())
-                .Bind(to: this.CounterLabel.rx_Text())
                 .DisposeBag(bag: this.DisposeBag);
         }
     }

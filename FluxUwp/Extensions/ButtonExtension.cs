@@ -11,6 +11,7 @@ namespace FluxUwp.Extensions
 {
     public static class ButtonExtension
     {
+        // TODO: Probably integrate with ICommand
         public static Subject<TappedRoutedEventArgs> rx_Tap(this Button btn)
         {
             var subject = new Subject<TappedRoutedEventArgs>();

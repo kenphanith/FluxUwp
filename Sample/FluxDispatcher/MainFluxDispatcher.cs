@@ -2,6 +2,8 @@
 using FluxUwp.Types;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -21,9 +23,18 @@ namespace Sample.FluxDispatcher
         DECREMENT,
     }
 
-    public struct State
+    public class State: StateType
     {
-        public int Counter { get; set; }
+        private int _counter;
+        public int Counter
+        {
+            get { return _counter; }
+            set
+            {
+                _counter = value;
+                base.InvokeNotify(nameof(Counter));
+            }
+        }
     }
 
     public class MainFluxDispatcher: FluxDispatcher<Action, Mutation, State>

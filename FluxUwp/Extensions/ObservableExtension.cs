@@ -11,11 +11,13 @@ namespace FluxUwp.Extensions
 {
     public static class ObservableExtension
     {
+        // TODO: Probably integrate with ICommand
         public static IObservable<T> Bind<T>(this IObservable<T> source, Subject<T> to)
         {
             return source.Do(value => to.OnNext(value));
         }
 
+        // TODO: Convert to catamophism || isomorphism
         public static void DisposeBag<T>(this IObservable<T> source, DisposeBag bag)
         {
             var token = source.Subscribe(); // usually take this at the end of stream composition

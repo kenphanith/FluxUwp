@@ -4,13 +4,14 @@ using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 
 namespace FluxUwp
 {
     public class FluxDispatcher<Action, Mutation, State> : IFluxDispatchable<Action, Mutation, State>
         where Action : Enum
         where Mutation : Enum
-        where State : struct
+        where State : StateType
     {
         /// <summary>
         /// action subject
@@ -53,7 +54,6 @@ namespace FluxUwp
         {
             this.InitialState = initialState;
             this._state = this.CreateStateStream();
-            this._state.Subscribe().Dispose(); // require subsciption once
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace FluxUwp
             })
             .Catch(Observable.Empty<State>())
             .StartWith(this.InitialState)
-            .ObserveOnDispatcher(CoreDispatcherPriority.High)
+            .ObserveOnDispatcher(CoreDispatcherPriority.Normal)
             .Do((__state) =>
             {
                 this.CurrentState = __state;
@@ -114,6 +114,20 @@ namespace FluxUwp
         protected virtual State Reduce(State state, MutationType<Mutation> mutation)
         {
             return state;
+        }
+
+        /// <summary>
+        /// Bind state
+        /// </summary>
+        /// <param name="page"></param>
+        public void Bind(Control control)
+        {
+            this._state
+                .Take(1)
+                .Subscribe(state =>
+                {
+                    control.DataContext = this.CurrentState;
+                });
         }
     }
 }

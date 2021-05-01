@@ -13,7 +13,7 @@
                 Orientation="Vertical">
         
         <TextBlock x:Name="CounterLabel"
-                   Text="--"
+                   Text="{Binding Path=Counter, Mode=TwoWay}"
                    HorizontalAlignment="Center" />
 
         <StackPanel Orientation="Horizontal">

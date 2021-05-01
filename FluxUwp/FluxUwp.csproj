@@ -130,6 +130,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ActionType.cs" />
     <Compile Include="Types\MutationType.cs" />
+    <Compile Include="Types\StateType.cs" />
     <EmbeddedResource Include="Properties\FluxUwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
