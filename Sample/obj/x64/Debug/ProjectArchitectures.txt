@@ -1,0 +1,2 @@
+C:\Users\phanith\Desktop\FluxUwp\FluxUwp\FluxUwp.csproj;x64
+C:\Users\phanith\Desktop\FluxUwp\Sample\Sample.csproj;x64
